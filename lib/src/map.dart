@@ -19,27 +19,26 @@ import 'model/location_result.dart';
 import 'utils/location_utils.dart';
 
 class MapPicker extends StatefulWidget {
-  const MapPicker(
-    this.apiKey, {
-    Key key,
-    this.initialCenter,
-    this.initialZoom,
-    this.requiredGPS,
-    this.myLocationButtonEnabled,
-    this.layersButtonEnabled,
-    this.automaticallyAnimateToCurrentLocation,
-    this.mapStylePath,
-    this.appBarColor,
-    this.searchBarBoxDecoration,
-    this.hintText,
-    this.resultCardConfirmIcon,
-    this.resultCardAlignment,
-    this.resultCardDecoration,
-    this.resultCardPadding,
-    this.language,
-    this.desiredAccuracy,
-    this.polygons
-  }) : super(key: key);
+  const MapPicker(this.apiKey,
+      {Key key,
+      this.initialCenter,
+      this.initialZoom,
+      this.requiredGPS,
+      this.myLocationButtonEnabled,
+      this.layersButtonEnabled,
+      this.automaticallyAnimateToCurrentLocation,
+      this.mapStylePath,
+      this.appBarColor,
+      this.searchBarBoxDecoration,
+      this.hintText,
+      this.resultCardConfirmIcon,
+      this.resultCardAlignment,
+      this.resultCardDecoration,
+      this.resultCardPadding,
+      this.language,
+      this.desiredAccuracy,
+      this.polygons})
+      : super(key: key);
 
   final String apiKey;
 
@@ -98,8 +97,8 @@ class MapPickerState extends State<MapPicker> {
   Future<void> _initCurrentLocation() async {
     Position currentPosition;
     try {
-      currentPosition =
-          await Geolocator.getCurrentPosition(desiredAccuracy: widget.desiredAccuracy);
+      currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: widget.desiredAccuracy);
       d("position = $currentPosition");
 
       setState(() => _currentPosition = currentPosition);
@@ -256,19 +255,21 @@ class MapPickerState extends State<MapPicker> {
                   Spacer(),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () {
                       Navigator.of(context).pop({
                         'location': LocationResult(
-                          latLng: locationProvider.lastIdleLocation,
-                          address: _address,
-                          placeId: _placeId,
-                          addressComponents: AddressComponents.fromRawJson(_addressComponents)
-                        )
+                            latLng: locationProvider.lastIdleLocation,
+                            address: _address,
+                            placeId: _placeId,
+                            addressComponents: AddressComponents.fromRawJson(
+                                _addressComponents))
                       });
                     },
-                    child: Text('Potvrdit', style: TextStyle(color: Colors.black)),
+                    child:
+                        Text('Potvrdit', style: TextStyle(color: Colors.black)),
                   ),
                 ],
               ),
@@ -282,18 +283,13 @@ class MapPickerState extends State<MapPicker> {
   Future<Map<String, dynamic>> getAddress(LatLng location) async {
     try {
       if (location != null) {
-        final response = await http.get(
-          Uri.https(
-            'api.geoapify.com', 
-            '/v1/geocode/reverse', 
-            {
-              "apiKey": "05670481f6a2403da2568a997d09a701", 
-              "lat": location?.latitude?.toString(),
-              "lon": location?.longitude?.toString(),
-              "lang": "cs"
-            }
-          )
-        );
+        final response = await http
+            .get(Uri.https('api.geoapify.com', '/v1/geocode/reverse', {
+          "apiKey": "40ade1357fc6468e8475a1e788a1f765",
+          "lat": location?.latitude?.toString(),
+          "lon": location?.longitude?.toString(),
+          "lang": "cs"
+        }));
         final body = jsonDecode(response.body);
         dynamic properties = body['features'][0]['properties'];
         String address;
@@ -302,13 +298,9 @@ class MapPickerState extends State<MapPicker> {
         } else {
           address = properties["formatted"].split(",")[0];
         }
-        return {
-          "placeId": null,
-          "address": address,
-          "addressComponents": null
-        };
+        return {"placeId": null, "address": address, "addressComponents": null};
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     return {"placeId": null, "address": null};

@@ -18,28 +18,26 @@ import 'model/location_result.dart';
 import 'utils/location_utils.dart';
 
 class LocationPicker extends StatefulWidget {
-  LocationPicker(
-    this.apiKey, {
-    Key key,
-    this.initialCenter,
-    this.initialZoom,
-    this.requiredGPS,
-    this.myLocationButtonEnabled,
-    this.layersButtonEnabled,
-    this.automaticallyAnimateToCurrentLocation,
-    this.mapStylePath,
-    this.appBarColor,
-    this.searchBarBoxDecoration,
-    this.hintText,
-    this.resultCardConfirmIcon,
-    this.resultCardAlignment,
-    this.resultCardDecoration,
-    this.resultCardPadding,
-    this.countries,
-    this.language,
-    this.desiredAccuracy,
-    this.polygons
-  });
+  LocationPicker(this.apiKey,
+      {Key key,
+      this.initialCenter,
+      this.initialZoom,
+      this.requiredGPS,
+      this.myLocationButtonEnabled,
+      this.layersButtonEnabled,
+      this.automaticallyAnimateToCurrentLocation,
+      this.mapStylePath,
+      this.appBarColor,
+      this.searchBarBoxDecoration,
+      this.hintText,
+      this.resultCardConfirmIcon,
+      this.resultCardAlignment,
+      this.resultCardDecoration,
+      this.resultCardPadding,
+      this.countries,
+      this.language,
+      this.desiredAccuracy,
+      this.polygons});
 
   final String apiKey;
 
@@ -151,15 +149,15 @@ class LocationPickerState extends State<LocationPicker> {
     place = place.replaceAll(" ", "+");
 
     LocationUtils.getAppHeaders()
-        .then((headers) => http.get(
-          Uri.https("api.geoapify.com", "/v1/geocode/autocomplete", {
-            "text": place,
-            "limit": "3",
-            "apiKey": "05670481f6a2403da2568a997d09a701",
-            "lang": "cs",
-            "filter": "circle:14.428442383831907,50.07967190218099,15000",
-            "bias": "countrycode:cs"
-          })))
+        .then((headers) =>
+            http.get(Uri.https("api.geoapify.com", "/v1/geocode/autocomplete", {
+              "text": place,
+              "limit": "3",
+              "apiKey": "40ade1357fc6468e8475a1e788a1f765",
+              "lang": "cs",
+              "filter": "circle:14.428442383831907,50.07967190218099,15000",
+              "bias": "countrycode:cs"
+            })))
         .then((response) {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
@@ -191,7 +189,7 @@ class LocationPickerState extends State<LocationPicker> {
             }));
           }
         }
-  
+
         displayAutoCompleteSuggestions(suggestions);
       }
     }).catchError((error) {
@@ -270,28 +268,26 @@ class LocationPickerState extends State<LocationPicker> {
               hintText: widget.hintText,
             ),
           ),
-          body: MapPicker(
-            widget.apiKey,
-            initialCenter: widget.initialCenter,
-            initialZoom: widget.initialZoom,
-            requiredGPS: widget.requiredGPS,
-            myLocationButtonEnabled: widget.myLocationButtonEnabled,
-            layersButtonEnabled: widget.layersButtonEnabled,
-            automaticallyAnimateToCurrentLocation:
-                widget.automaticallyAnimateToCurrentLocation,
-            mapStylePath: widget.mapStylePath,
-            appBarColor: widget.appBarColor,
-            searchBarBoxDecoration: widget.searchBarBoxDecoration,
-            hintText: widget.hintText,
-            resultCardConfirmIcon: widget.resultCardConfirmIcon,
-            resultCardAlignment: widget.resultCardAlignment,
-            resultCardDecoration: widget.resultCardDecoration,
-            resultCardPadding: widget.resultCardPadding,
-            key: mapKey,
-            language: widget.language,
-            desiredAccuracy: widget.desiredAccuracy,
-            polygons: widget.polygons
-          ),
+          body: MapPicker(widget.apiKey,
+              initialCenter: widget.initialCenter,
+              initialZoom: widget.initialZoom,
+              requiredGPS: widget.requiredGPS,
+              myLocationButtonEnabled: widget.myLocationButtonEnabled,
+              layersButtonEnabled: widget.layersButtonEnabled,
+              automaticallyAnimateToCurrentLocation:
+                  widget.automaticallyAnimateToCurrentLocation,
+              mapStylePath: widget.mapStylePath,
+              appBarColor: widget.appBarColor,
+              searchBarBoxDecoration: widget.searchBarBoxDecoration,
+              hintText: widget.hintText,
+              resultCardConfirmIcon: widget.resultCardConfirmIcon,
+              resultCardAlignment: widget.resultCardAlignment,
+              resultCardDecoration: widget.resultCardDecoration,
+              resultCardPadding: widget.resultCardPadding,
+              key: mapKey,
+              language: widget.language,
+              desiredAccuracy: widget.desiredAccuracy,
+              polygons: widget.polygons),
         );
       }),
     );
@@ -334,28 +330,26 @@ Future<LocationResult> showLocationPicker(
     MaterialPageRoute<dynamic>(
       builder: (BuildContext context) {
         // print('[LocationPicker] [countries] ${countries.join(', ')}');
-        return LocationPicker(
-          apiKey,
-          initialCenter: initialCenter,
-          initialZoom: initialZoom,
-          requiredGPS: requiredGPS,
-          myLocationButtonEnabled: myLocationButtonEnabled,
-          layersButtonEnabled: layersButtonEnabled,
-          automaticallyAnimateToCurrentLocation:
-              automaticallyAnimateToCurrentLocation,
-          mapStylePath: mapStylePath,
-          appBarColor: appBarColor,
-          hintText: hintText,
-          searchBarBoxDecoration: searchBarBoxDecoration,
-          resultCardConfirmIcon: resultCardConfirmIcon,
-          resultCardAlignment: resultCardAlignment,
-          resultCardPadding: resultCardPadding,
-          resultCardDecoration: resultCardDecoration,
-          countries: countries,
-          language: language,
-          desiredAccuracy: desiredAccuracy,
-          polygons: polygons
-        );
+        return LocationPicker(apiKey,
+            initialCenter: initialCenter,
+            initialZoom: initialZoom,
+            requiredGPS: requiredGPS,
+            myLocationButtonEnabled: myLocationButtonEnabled,
+            layersButtonEnabled: layersButtonEnabled,
+            automaticallyAnimateToCurrentLocation:
+                automaticallyAnimateToCurrentLocation,
+            mapStylePath: mapStylePath,
+            appBarColor: appBarColor,
+            hintText: hintText,
+            searchBarBoxDecoration: searchBarBoxDecoration,
+            resultCardConfirmIcon: resultCardConfirmIcon,
+            resultCardAlignment: resultCardAlignment,
+            resultCardPadding: resultCardPadding,
+            resultCardDecoration: resultCardDecoration,
+            countries: countries,
+            language: language,
+            desiredAccuracy: desiredAccuracy,
+            polygons: polygons);
       },
     ),
   );
